@@ -12,12 +12,14 @@ export const draw = (data) => {
         .data(data)
         .enter()
         .append('rect')
-        .attr('width', 10)
+        .attr('width', () => {
+            return w / data.length;
+        })
         .attr('height', (d) => {
             return d * 2;
         })
         .attr('x', (d, i) => {
-            return i * 12;
+            return i * (w / data.length);
         })
         .attr('y', (d) => {
             return h - d * 2;
