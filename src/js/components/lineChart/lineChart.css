@@ -1,6 +1,12 @@
-.line {
+.line1 {
     fill: none;
     stroke: #ffab00;
+    stroke-width: 3;
+}
+
+.line2 {
+    fill: none;
+    stroke: steelblue;
     stroke-width: 3;
 }
 
@@ -9,12 +15,24 @@
     pointer-events: all;
 }
 
-.dot {
+.dot1 {
     fill: #ffab00;
     stroke: #fff;
 }
 
+.dot2 {
+    fill: steelblue;
+    stroke: #fff;
+}
+
+
+
 .focus circle {
     fill: none;
     stroke: steelblue;
+}
+
+.highlight {
+    stroke: black;
+    /*stroke-width: 3;*/
 }

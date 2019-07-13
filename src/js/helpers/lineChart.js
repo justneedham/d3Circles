@@ -12,9 +12,12 @@ export const draw = (data) => {
     const line = d3.line()
         .x((d, i) => { return xScale(i); })
         .y((d, i) => { return yScale(d.y); })
-        .curve(d3.curveMonotoneX)
+        // .curve(d3.curveMonotoneX)
 
-    const dataSet = d3.range(n).map((d) => { return { y: d3.randomUniform(1)() }; });
+    const dataSetOne = d3.range(n).map((d) => { return { y: d3.randomUniform(0.5)() }; });
+    const dataSetTwo = d3.range(n).map((d) => { return { y: d3.randomUniform(0.5, 1)() }; });
+    console.log(dataSetOne)
+
     const svg = d3.select('.lineChart')
         .append('svg')
         .attr('width', width + margin.left + margin.right)
@@ -31,16 +34,37 @@ export const draw = (data) => {
         .attr('class', 'y axis')
         .call(d3.axisLeft(yScale));
 
+    svg.append('rect')
+        .attr('class', 'highlight')
+        .attr('height', height)
+        .attr('width', 1)
+        .attr('transform', `translate(${xScale(10)}, 0)`)
+
+
     svg.append('path')
-        .datum(dataSet)
-        .attr('class', 'line')
+        .datum(dataSetOne)
+        .attr('class', 'line1')
+        .attr('d', line);
+
+    svg.append('path')
+        .datum(dataSetTwo)
+        .attr('class', 'line2')
         .attr('d', line);
 
     svg.selectAll('.dot')
-        .data(dataSet)
+        .data(dataSetOne)
         .enter()
         .append('circle')
-        .attr('class', 'dot')
+        .attr('class', 'dot1')
+        .attr('cx', (d, i) => { return xScale(i); })
+        .attr('cy', (d) => { return yScale(d.y); })
+        .attr('r', 5);
+
+    svg.selectAll('.dot')
+        .data(dataSetTwo)
+        .enter()
+        .append('circle')
+        .attr('class', 'dot2')
         .attr('cx', (d, i) => { return xScale(i); })
         .attr('cy', (d) => { return yScale(d.y); })
         .attr('r', 5);
